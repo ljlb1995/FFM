@@ -1,0 +1,178 @@
+<?php View::notify(); ?>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <?php echo DwForm::open('', 'post', array('id'=>'form', 'class'=>'dw-validate')); ?>
+
+        <label>
+        <div class="row-fluid">
+            <div class="span3">
+                <?php echo DwForm::text('avance.idavance', array('class'=>'input-numeric input-required mask-pint show-error data-toggle="tooltip" title="Codigo del proyecto"'), NULL, 'Codigo del proyecto'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.idproyecto', array('class'=>'input-required show-error data-toggle="tooltip" title="Nombre del proyecto"'), NULL, 'Nombre'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.casas', array('class'=>'input-numeric input-required mask-pint show-error data-toggle="tooltip" title="Numero de casas"'), NULL, 'Numero de casas'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.responsable', array('class'=>'input-required  show-error data-toggle="tooltip" title="Ingeniero responsable"'), NULL, 'Responsable'); ?>
+            </div>
+        </div>
+        <br><br>
+<legend style="background:#ffffff">Armado de losas</legend> 
+        <div class="row-fluid">
+            <div class="span4">
+                <?php echo DwForm::text('avance.sanitaria', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Instalaciones Sanitaria"'), NULL, 'Instalaciones Sanitaria'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.electrica', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Instalaciones Electricas"'), NULL, 'Instalaciones Electricas'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.losa', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Losa completa"'), NULL, 'Losa completa'); ?>
+            </div>
+        </div><br><br>
+<legend style="background:#ffffff">Estructuras</legend>
+Paredes:
+        <div class="row-fluid">
+            <div class="span4">
+                <?php echo DwForm::text('avance.paredesCemento', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Cemento"'), NULL, 'Cemento'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.paredesArcilla', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Arcilla"'), NULL, 'Arcilla'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.paredesOtros', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Otros tipos"'), NULL, 'Otros'); ?>
+            </div>
+        </div>
+Colunnas/Vigas:
+        <div class="row-fluid">
+            <div class="span4">
+                <?php echo DwForm::text('avance.colunnas', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Colunnas"'), NULL, 'Colunnas'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.vigas', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Vigas"'), NULL, 'Vigas'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.dinteles', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Dinteles"'), NULL, 'Dinteles'); ?>
+            </div>
+        </div>
+Marcos:
+        <div class="row-fluid">
+            <div class="span4">
+                <?php echo DwForm::text('avance.marcoPuerta', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Puertas"'), NULL, 'Puertas'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.marcoVentana', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Ventanas"'), NULL, 'Ventanas'); ?>
+            </div>
+        </div><br><br>
+<legend style="background:#ffffff">Techo</legend> 
+colocacion de correas:
+        <div class="row-fluid">
+            <div class="span3">
+                <?php echo DwForm::text('avance.techoLiviano', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Techo liviano"'), NULL, 'Techo liviano'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.techoMachiembrado', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Machiembrado"'), NULL, 'Machiembrado'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.techoPlatabanda', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Platabanda"'), NULL, 'Platabanda'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.techoOtros', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Otros"'), NULL, 'Otros'); ?>
+            </div>
+        </div><br><br>
+<legend style="background:#ffffff">Acabado</legend> 
+Paredes:
+        <div class="row-fluid">
+            <div class="span4">
+                <?php echo DwForm::text('avance.resaneo', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Resaneo" '), NULL, 'Resaneo'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.friso', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Friso"'), NULL, 'Friso'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.cementoPulido', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Cemento Pulido"'), NULL, 'Cemento Pulido'); ?>
+            </div>
+        </div>
+Ceramica:
+        <div class="row-fluid">
+            <div class="span4">
+                <?php echo DwForm::text('avance.ceramicaLavado', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Lavado"'), NULL, 'Lavado'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.ceramicaCocina', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Cocina"'), NULL, 'Cocina'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.ceramicaBano', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Baño"'), NULL, 'Baño'); ?>
+            </div>
+        </div><br><br>
+<legend style="background:#ffffff">Culminadas con Detalle</legend> 
+        <div class="row-fluid">
+            <div class="span3">
+                <?php echo DwForm::text('avance.pinternas', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Puertas Internas"'), NULL, 'Puertas Internas'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.pexternas', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Puertas Externas"'), NULL, 'Puertas Externas'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.ventanas', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Ventanas"'), NULL, 'Ventanas'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.corriente', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Toma corriente y luminaria"'), NULL, 'Toma Corriente y Luminaria'); ?>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">
+                <?php echo DwForm::text('avance.piezaSanitaria', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Piezas Sanitarias"'), NULL, 'Piezas Sanitarias'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.pintura', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Pintura"'), NULL, 'Pintura'); ?>
+            </div>
+            <div class="span4">
+                <?php echo DwForm::text('avance.servicioPublico', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Servicios Publicos"'), NULL, 'Servicios Publicos'); ?>
+            </div>
+        </div><br><br>
+<legend style="background:#ffffff">Afecciones</legend> 
+        <div class="row-fluid">
+            <div class="span3">
+                <?php echo DwForm::text('avance.afeccionProducto', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Falta de Productos"'), NULL, 'Falta de Productos'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.afeccionBrigada', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Falta de Brigada"'), NULL, 'Falta de Brigada'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.afeccionEconomica', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Afeccion Economica"'), NULL, 'Economica'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.afeccionTecnica', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Afeccion Tecnica"'), NULL, 'Tecnica'); ?>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span3">
+                <?php echo DwForm::text('avance.afeccionEquipo', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Afeccion por Equipo Promotor"'), NULL, 'Equipo Promotor'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.afeccionTransporte', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Afeccion de Transporte"'), NULL, 'Transporte'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.afeccionMaquinaria', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Afeccion de Maquinaria"'), NULL, 'Maquinaria'); ?>
+            </div>
+            <div class="span3">
+                <?php echo DwForm::text('avance.sinAfeccion', array('class'=>'input-numeric mask-pint show-error data-toggle="tooltip" title="Sin Afecciones"'), NULL, 'Sin Afecciones'); ?>
+            </div>
+        </div>
+        </label>
+        <div class="row-fluid">
+            <div class="form-actions">
+                <?php echo DwButton::save('Guardar Parroco'); ?>
+                <?php echo DwButton::reset('form'); ?>
+                <?php echo DwButton::cancel('proyecto/avance/listar/'); ?>
+            </div>
+        </div>
+
+    <?php echo DwForm::close(); ?>
+
+</div>

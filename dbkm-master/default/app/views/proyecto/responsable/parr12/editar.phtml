@@ -1,0 +1,58 @@
+<?php View::notify(); ?>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <?php echo DwForm::open('', 'post', array('id'=>'form', 'class'=>'dw-validate')); ?>
+
+        <div class="row-fluid">
+            <div class="span6">
+                        <?php echo DwForm::number('parroco.nuip', array('class'=>'input-xxlarge input-required mask-pint show-error'), $parroco->nuip, 'Cédula'); ?>
+                    </div>
+            <div class="span6">
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::text('parroco.nombre', array('class'=>'input-required mask-text show-error input-xxlarge'), $parroco->nombre, 'Nombre'); ?>
+            </div>
+
+            <div class="span6">
+                        <?php echo DwForm::text('parroco.apellido', array('class'=>'input-xxlarge input-required mask-alphanum show-error'), $parroco->apellido, 'Apellido'); ?>
+                    </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                        <?php echo DwForm::date('parroco.fecha_nacimiento', array('class'=>'input-xlarge input-required mask-date input-date show-errors'), date("Y-m-d"), $parroco->fecha_nacimiento, 'Fecha de Nacimiento'); ?>
+                    </div>
+
+           <div class="span6">
+                        <?php echo DwForm::tel('parroco.telefono', array('class'=>'input-numeric mask-pint show-error'), $parroco->telefono, 'Teléfono'); ?>
+                    </div>
+        </div>
+
+        <div class="row-fluid">
+
+            <div class="span6">
+                <?php echo DwForm::textarea('parroco.direccion_habitacion', array('class'=>'input-xxlarge input-required show-error'), $parroco->direccion_habitacion, 'Dirección'); ?>
+            </div>
+            <div class="span6">
+                        <?php echo DwForm::dbSelect('parroco.tipo_nuip_id', 'tipo_nuip', array('params/tipo_nuip', 'getListadoTipoNuip'), $parroco->tipo_nuip, array('class'=>'input-xxlarge input-required mask-pint show-errors'), $parroco->tipo_nuip_id, 'Sexo'); ?>
+                    </div>
+        </div>      
+
+            <?php echo DwForm::hiddenKey('parroco.id', $parroco->id); ?>
+
+        <div class="row-fluid">
+            <div class="form-actions">
+                <?php echo DwButton::save('Guardar Nombre'); ?>
+                <?php echo DwButton::reset('form'); ?>
+                <?php echo DwButton::cancel('config/parroco/listar/'); ?>
+            </div>
+        </div>
+
+    <?php echo DwForm::close(); ?>
+
+</div>

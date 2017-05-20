@@ -1,0 +1,68 @@
+<?php View::notify(); ?>
+
+<script type="text/javascript">
+    $(function() {
+        $('table').dwGrid({
+            form_search: true,
+            form_action: '<?php echo PUBLIC_PATH; ?>config/unidad/buscar/',
+            form_load_data : 'dw-shell-content',
+            order_attr: '<?php echo (APP_AJAX) ? 'class="dw-ajax dw-spinner"' : ''; ?>',
+            order_action: $.KumbiaPHP.publicPath+"config/unidad/listar/"
+        });
+    });
+</script>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <div class="btn-toolbar btn-toolbar-top">
+        <div class="btn-actions">
+            <?php echo DwHtml::button("config/unidad/agregar/", 'agregar', array('class'=>'btn-success'), 'check', APP_AJAX); ?>
+            <?php echo DwButton::report("unidad/listar/", 'html', 'Reporte de unidades', 'imprimir'); ?>
+        </div>
+    </div>
+
+    <div class="dw-overflow">
+
+        <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>NUM</th>
+                    <th class="col-collapse" data-search="nombre">NOMBRE</th>
+                    <th class="col-collapse">DESCRIPCIÓN</th>
+                    
+                    <th class="col-collapse">ESTADO</th>
+                    <th class="btn-actions no-responsive">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($unidades->items as $unidad): ?>
+                    <?php $key_upd = DwSecurity::getKey($unidad->id, 'upd_unidad'); ?>
+                    <?php $key_inac = DwSecurity::getKey($unidad->id, 'inactivar_unidad'); ?>
+                    <?php $key_reac = DwSecurity::getKey($unidad->id, 'reactivar_unidad'); ?>
+                    <tr>
+                        <td><?php echo $unidades->counter; ?></td>
+                        <td><?php echo empty($unidad->nombre) ? '' : $unidad->nombre; ?></td>
+                        <td><?php echo $unidad->descripcion; ?></td>
+                        
+                                  <td><?php echo ($unidad->estado == Unidad::ACTIVO) ? '<span class="label label-success">Activo</span>' : '<span class="label label-important">Inactivo</span>'; ; ?></td>
+                        <td>
+                            <?php echo DwHtml::buttonTable('Modificar unidad', "config/unidad/editar/$key_upd/", null, 'info', 'edit'); ?>
+                             <?php if($unidad->estado == Unidad::ACTIVO) { ?>
+                                <?php echo DwHtml::buttonTable('Inactivar unidad', "config/unidad/estado/inactivar/$key_inac/", null, 'success', 'flag'); ?>
+                            <?php } else { ?>
+                                <?php echo DwHtml::buttonTable('Reactivar sacramento', "config/unidad/estado/reactivar/$key_reac/", null, 'danger', 'flag'); ?>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <?php $unidades->counter++; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+    </div>
+
+    <?php View::partial('paginators/default', false, array('page'=>$unidades, 'url'=>"config/unidades/listar/$order/")); ?>
+
+</div>

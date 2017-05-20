@@ -1,0 +1,64 @@
+<?php View::notify(); ?>
+<script type="text/javascript">
+    $(function() {
+        $('table').dwGrid({
+            form_search: true,
+            form_action: '<?php echo PUBLIC_PATH; ?>config/grupo/buscar/',
+            form_load_data : 'dw-shell-content',
+            order_attr: '<?php echo (APP_AJAX) ? 'class="dw-ajax dw-spinner"' : ''; ?>',
+            order_action: $.KumbiaPHP.publicPath+"config/grupo/buscar/<?php echo $field.'/'.$value.'/'; ?>"
+        });
+    });
+</script>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <div class="btn-toolbar btn-toolbar-top">
+        <div class="btn-actions">
+            <?php echo DwHtml::button("config/grupo/agregar/", 'agregar', array('class'=>'btn-success'), 'check', APP_AJAX); ?>
+            <?php echo DwHtml::button("config/grupo/listar/", 'listar', array('class'=>'btn-warning'), 'ok', APP_AJAX); ?>
+        </div>
+    </div>
+
+    <div class="dw-overflow" id="data-result">
+
+        <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>NUM</th>
+                    <th class="col-collapse" data-search="nombre">NOMBRE</th>
+                       <th class="col-collapse">ESTADO</th>s
+                    <th class="btn-actions no-responsive" style="width: 100px;">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if($grupos) { ?>
+                <?php foreach($grupos->items as $grupo): ?>
+                    <?php $key_upd = DwSecurity::getKey($grupo->id, 'upd_grupo'); ?>
+                    <?php $key_inac = DwSecurity::getKey($grupo->id, 'inactivar_grupo'); ?>
+                    <?php $key_reac = DwSecurity::getKey($grupo->id, 'reactivar_grupo'); ?>
+                    <tr>
+                        <td><?php echo $grupos->counter; ?></td>
+                        <td><?php echo ($field=='nombre') ? DwUtils::resaltar($value, $grupo->nombre) : $grupo->nombre; ?></td>
+                         <td><?php echo ($grupo->estado == Grupo::ACTIVO) ? '<span class="label label-success">Activo</span>' : '<span class="label label-important">Inactivo</span>'; ; ?></td>
+                        <td>
+                            <?php echo DwHtml::buttonTable('Modificar grupo', "config/grupo/editar/$key_upd/", NULL, 'info', 'edit'); ?>
+                           <?php if($grupo->estado == Grupo::ACTIVO) { ?>
+                                <?php echo DwHtml::buttonTable('Inactivar grupo', "config/grupo/estado/inactivar/$key_inac/", null, 'success', 'flag'); ?>
+                            <?php } else { ?>
+                                <?php echo DwHtml::buttonTable('Reactivar grupo', "config/grupo/estado/reactivar/$key_reac/", null, 'danger', 'flag'); ?>
+                            <?php } ?>                  
+                        </td>
+                    </tr>
+                    <?php $grupos->counter++; ?>
+                <?php endforeach; ?>
+            </tbody>
+            <?php } ?>
+        </table>
+
+    </div>
+
+    <?php View::partial('paginators/default', false, array('page'=>$grupos, 'url'=>"config/grupo/buscar/$field/$value/$order/")); ?>
+</div>

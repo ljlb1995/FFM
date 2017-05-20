@@ -1,0 +1,55 @@
+<?php View::notify(); ?>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <?php echo DwForm::open('', 'post', array('id'=>'form', 'class'=>'dw-validate')); ?>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::number('responsable.cedula', array('class'=>'input-xlarge input-required show-error data-toggle="tooltip" title="Ingrese cedula del responsable"'), NULL, 'Cedula'); ?>
+            </div>
+            <div class="span6">
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::text('responsable.nombre', array('class'=>'input-xlarge input-required show-error data-toggle="tooltip" title="Ingrese el Nombre del responsable"'), NULL, 'Nombre'); ?>
+            </div>
+
+            <div class="span6">
+                <?php echo DwForm::text('responsable.apellido', array('class'=>'input-xlarge input-required show-error data-toggle="tooltip" title="Ingrese Apellido"'), NULL, 'Apellido'); ?>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::number('responsable.telefono', array('class'=>'input-numeric input-required input-xlarge mask-pint show-error data-toggle="tooltip" title="Ingrese Teléfono Fijo del responsable"'), NULL, 'Teléfono'); ?>
+            </div>
+
+                 <div class="span6">
+                        <?php echo DwForm::date('responsable.fecha_nacimiento', array('class'=>'input-xlarge input-required mask-date input-date show-errors'), date("Y-m-d"), 'Fecha de Nacimiento'); ?>
+                    </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::textarea('responsable.direccion_habitacion', array('class'=>'input-xxlarge input-required show-error data-toggle="tooltip" title="Ingrese la Dirección del ingeniero"'), NULL, 'Dirección'); ?>
+            </div>
+           
+            
+        </div>
+
+
+        <div class="row-fluid">
+            <div class="form-actions">
+                <?php echo DwButton::save('Guardar Parroco'); ?>
+                <?php echo DwButton::reset('form'); ?>
+                <?php echo DwButton::cancel('proyecto/responsable/listar/'); ?>
+            </div>
+        </div>
+
+    <?php echo DwForm::close(); ?>
+
+</div>

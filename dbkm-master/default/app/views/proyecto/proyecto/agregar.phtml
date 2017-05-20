@@ -1,0 +1,123 @@
+<?php View::notify(); ?>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <?php echo DwForm::open('', 'post', array('id'=>'form', 'class'=>'dw-validate')); ?>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::number('proyecto.idproyecto', array('class'=>'input-xlarge input-required show-error data-toggle="tooltip" title="Ingrese el Codigo del Proyecto"'), NULL, 'Codigo'); ?>
+            </div>
+            <div class="span6">
+                <?php echo DwForm::text('proyecto.nombreproyecto', array('class'=>'input-xlarge input-required show-error data-toggle="tooltip" title="Ingrese el Nombre del Proyecto"'), NULL, 'Nombre Proyecto'); ?>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::number('proyecto.cantfamiliar', array('class'=>'input-numeric input-required show-error data-toggle="tooltip" title=""'), NULL, 'Cantidad de casas Familiar'); ?>
+            </div>
+
+            <div class="span6">
+                <?php echo DwForm::number('proyecto.cantbifamiliar', array('class'=>'input-numeric input-required input-xlarge mask-pint show-error data-toggle="tooltip" title=""'), NULL, 'Cantidad de casas Bifamiliar'); ?>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                 <?php echo DwForm::number('proyecto.canttetra', array('class'=>'input-numeric input-required input-xlarge mask-pint show-error data-toggle="tooltip" title=""'), NULL, 'Cantidad de casas Tetra'); ?>
+                
+            </div>
+        <div class="span6">
+                <?php echo DwForm::number('proyecto.canttotal', array('class'=>'input-numeric input-required input-xlarge mask-pint show-error data-toggle="tooltip" title=""'), NULL, 'Cantidad total de casas'); ?>
+        </div>
+            
+         <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::date('proyecto.fechai', array('class'=>'input-xlarge input-required mask-date input-date show-errors'), date("Y-m-d"), 'Fecha de inicio'); ?>
+            </div>     
+            <div class="span6">
+
+                <?php echo DwForm::dbSelect('proyecto.idestado', array('nombreEstado'), array('config/estado', 'getListadoEstado'), array('todas'=>'Seleccione'), array('class'=>'input-xlarge  mask-pint show-errors data-toggle="tooltip" title="Selecciona un estado"'), NULL, 'Estado'); ?>
+             </div>
+        </div>
+            <div class="row-fluid">
+                <div class="span6" >
+                <label>Municipio<span class="req">*</span></label>
+                <div id='div_municipio'><select class="input-xlarge"> <?php
+  echo Form::dbSelect("proyecto.idmunicipio", 'nombremunicipio', array('municipio','buscar',$idestado), '- Seleccione -');
+
+?>      </select></div>
+                </div>
+                 <div class="span6">
+                 <label>Ciudad<span class="req">*</span></label>
+                 <div id='div_ciudades'><select class="input-xlarge"> <option value=""> Seleccione:</option></select></div> 
+                </div>
+            </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::textarea('proyecto.direccion', array('class'=>'input-xlarge input-required show-error data-toggle="tooltip" title="Ingrese la Dirección del proyecto"'), NULL, 'Dirección'); ?>
+                
+            </div>
+            <div class="span6">
+                <?php echo DwForm::dbSelect('proyecto.responsableuno', array('nombre'), array('proyecto/responsable', 'getListadoSelect'), array('todas'=>'Seleccione'), array('class'=>'input-xlarge input-required mask-pint show-errors data-toggle="tooltip" title="Selecciona una persona"'), NULL, 'Ingeniero Responsable'); ?>
+               
+            </div>
+        </div>
+        <div class="row-fluid">
+           <div class="span6">
+                
+                <?php echo DwForm::dbSelect('proyecto.responsabledos', array('nombre'), array('proyecto/responsable', 'getListadoSelect'), array('todas'=>'Seleccione'), array('class'=>'input-xlarge input-required mask-pint show-errors data-toggle="tooltip" title="Selecciona una persona"'), NULL, 'Ingeniero Inspector'); ?>
+            </div> 
+            <div class="span6">
+                
+                <?php echo DwForm::dbSelect('proyecto.responsabletres', array('nombre'), array('proyecto/responsable', 'getListadoSelect'), array('todas'=>'Seleccione'), array('class'=>'input-xlarge input-required mask-pint show-errors data-toggle="tooltip" title="Selecciona una persona"'), NULL, 'Vocero de la comunidad'); ?>
+            </div>
+           
+            
+        </div>
+
+
+        <div class="row-fluid">
+            <div class="form-actions">
+                <?php echo DwButton::save('Guardar'); ?>
+                <?php echo DwButton::reset('form'); ?>
+                <?php echo DwButton::cancel('proyecto/proyecto/listar/'); ?>
+            </div>
+        </div>
+
+    <?php echo DwForm::close(); ?>
+
+</div>
+<!-- para validad que si seleccione un ingeniero se desactive en las demas
+<script type='text/javascript'>
+
+function chequear(obj) {  
+  var responsable_id = document.getElementById('responsable_id').value;
+//para validar que no repita el patologia en el arreglo.
+   for(var i=0;i<document.getElementsByName('responsable_id[]').length;i++){                               
+        if (document.getElementsByName('responsable_id[]')[i].value==responsable_id){
+            alert('Esta intentando asignar la misma persona para cargos distintos.\nVerifique los datos!');
+            return false;
+        }                 
+    } 
+</script> -->
+
+<!-- Script para obtener por Ajax Los Municipios en funcion de los Estados  -->
+
+<script type='text/javascript'>
+$("#proyecto_idestado").change(function(){
+    var idestado     =   $('#proyecto_idestado').val();
+        $.ajax({
+          type: "POST",
+          url: "<?php echo PUBLIC_PATH . 'proyecto/proyecto/getMunicipios/'; ?>",
+          data: "idestado=" + idestado,
+          success: function(html){
+            $("#div_municipio").html(html);
+          }
+        });
+});
+</script>
+

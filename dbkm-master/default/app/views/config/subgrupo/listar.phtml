@@ -1,0 +1,72 @@
+<?php View::notify(); ?>
+
+<script type="text/javascript">
+    $(function() {
+        $('table').dwGrid({
+            form_search: true,
+            form_action: '<?php echo PUBLIC_PATH; ?>config/subgrupo/buscar/',
+            form_load_data : 'dw-shell-content',
+            order_attr: '<?php echo (APP_AJAX) ? 'class="dw-ajax dw-spinner"' : ''; ?>',
+            order_action: $.KumbiaPHP.publicPath+"config/subgrupo/listar/"
+        });
+    });
+</script>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <div class="btn-toolbar btn-toolbar-top">
+        <div class="btn-actions">
+            <?php echo DwHtml::button("config/subgrupo/agregar/", 'agregar', array('class'=>'btn-success'), 'check', APP_AJAX); ?>
+            <?php echo DwButton::report("subgrupo/listar/", 'html', 'Reporte de subgrupos', 'imprimir'); ?>
+        </div>
+    </div>
+
+    <div class="dw-overflow">
+
+        <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>NUM</th>
+                    <th class="col-collapse" data-search="nombre">NOMBRE</th>
+                     <?if(APP_OFFICE) { //Si está activa la opción de oficinas ?>
+                    <th class="col-collapse" data-search="grupo">GRUPO</th>
+                    <? } ?>
+                    
+                    <th class="col-collapse">ESTADO</th>
+                    <th class="btn-actions no-responsive">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($subgrupos->items as $subgrupo): ?>
+                    <?php $key_upd = DwSecurity::getKey($subgrupo->id, 'upd_subgrupo'); ?>
+                    <?php $key_inac = DwSecurity::getKey($subgrupo->id, 'inactivar_subgrupo'); ?>
+                    <?php $key_reac = DwSecurity::getKey($subgrupo->id, 'reactivar_subgrupo'); ?>
+                    <tr>
+                        <td><?php echo $subgrupos->counter; ?></td>
+                        <td><?php echo empty($subgrupo->nombre) ? '' : $subgrupo->nombre; ?></td>
+                         <?if(APP_OFFICE) { //Si está activa la opción de oficinas ?>
+                        <td><?php echo empty($subgrupo->grupo) ? 'Todas' : $subgrupo->grupo; ?></td>
+                        <? } ?>
+                        
+                                  <td><?php echo ($subgrupo->estado == Subgrupo::ACTIVO) ? '<span class="label label-success">Activo</span>' : '<span class="label label-important">Inactivo</span>'; ; ?></td>
+                        <td>
+                            <?php echo DwHtml::buttonTable('Modificar subgrupo', "config/subgrupo/editar/$key_upd/", null, 'info', 'edit'); ?>
+                             <?php if($subgrupo->estado == Subgrupo::ACTIVO) { ?>
+                                <?php echo DwHtml::buttonTable('Inactivar subgrupo', "config/subgrupo/estado/inactivar/$key_inac/", null, 'success', 'flag'); ?>
+                            <?php } else { ?>
+                                <?php echo DwHtml::buttonTable('Reactivar subgrupo', "config/subgrupo/estado/reactivar/$key_reac/", null, 'danger', 'flag'); ?>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <?php $subgrupos->counter++; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+    </div>
+
+    <?php View::partial('paginators/default', false, array('page'=>$subgrupos, 'url'=>"config/subgrupo/listar/$order/")); ?>
+
+</div>

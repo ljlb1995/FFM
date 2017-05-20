@@ -1,0 +1,40 @@
+<?php View::notify(); ?>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+        <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>NUM</th>
+                    <th class="col-collapse" data-search="idproyecto">CODIGO</th>
+                    <th class="col-collapse" data-search="nombreproyecto">NOMBRE</th>
+                    <th class="col-collapse">CANTIDAD DE CASAS</th>
+                    <th class="col-collapse">UBICACION</th>
+                    <th class="col-collapse">FECHA DE INICIO</th>
+                    <th class="col-collapse">PERSONA A CARGO</th>
+                     <th class="col-collapse">ESTADO</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                
+
+                        <?php $i=1; foreach($proyectos as $Proyecto): ?>
+                     
+                    <tr>
+                        <td><?php echo $i; ?></td>
+                        <td><?php echo empty($Proyecto->idproyecto) ? '' : $Proyecto->idproyecto; ?></td>
+                         <td><?php echo empty($Proyecto->nombreproyecto) ? '' : $Proyecto->nombreproyecto; ?></td> 
+                        <td><?php echo $Proyecto->canttotal; ?></td>
+                        <td><?php echo $Proyecto->direccion; ?></td>
+                        <td><?php echo $Proyecto->fechai; ?></td>
+                        <td><?php echo $Proyecto->ingeniero; ?></td>
+                        <td><?php echo ($Proyecto->estado == Proyecto::ACTIVO) ? '<span class="label label-success">Activo</span>' : '<span class="label label-important">Inactivo</span>'; ; ?></td>
+
+                    </tr>
+                    <?php $i++; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+

@@ -1,0 +1,60 @@
+<?php View::notify(); ?>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <?php echo DwForm::open('', 'post', array('id'=>'form', 'class'=>'dw-validate')); ?>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::text('entrada.numerocontrol', array('class'=>'input-large input-required show-error data-toggle="tooltip" title="Ingrese RIF del entrada"'), NULL, 'Numero de Control'); ?>
+            </div>
+            <div class="span6">
+                <?php echo DwForm::date('entrada.fecha', array('class'=>'input-large input-required mask-date input-date show-errors'), date("Y-m-d"), 'Fecha'); ?>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::text('entrada.cedulachofer', array('class'=>'input-xlarge input-required show-error data-toggle="tooltip" title="Ingrese la cedula del chofer"'), NULL, 'Cedula del chofer'); ?>
+            </div>
+
+            <div class="span6">
+                <?php echo DwForm::text('entrada.nombrechofer', array('class'=>'input-large input-required show-error data-toggle="tooltip" title="Ingrese el nombre y apellido del chofer"'), NULL, 'Nombre y Apellido del chofer'); ?>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::text('entrada.placavehiculo', array('class'=>'input-large input-required show-error data-toggle="tooltip" title="Ingrese la placa del vehiculo del chofer"'), NULL, 'Placa del vehiculo'); ?>
+               
+            </div>
+
+            <div class="span6">
+                <?php echo DwForm::text('entrada.tipovehiculo', array('class'=>'input-large show-error data-toggle="tooltip" title="Ingrese el tipo de vehiculo del chofer"'), NULL, 'Tipo de Vehiculo'); ?>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                
+                <?php echo DwForm::dbSelect('entrada.idproducto', array('nombreproducto'), array('inventario/producto', 'getListadoSelect'), array('todas'=>'Seleccione'), array('class'=>'input-large input-required mask-pint show-errors data-toggle="tooltip" title="Selecciona un producto"'), NULL, 'Producto'); ?>
+            </div>
+            <div class="span6">
+                <?php echo DwForm::text('entrada.cantidadproducto', array('class'=>'input-large show-error data-toggle="tooltip" title="Ingrese cantidad del producto"'), NULL, 'Cantidad de productos'); ?>
+            </div>
+            
+        </div>
+
+
+        <div class="row-fluid">
+            <div class="form-actions">
+                <?php echo DwButton::save('Guardar'); ?>
+                <?php echo DwButton::reset('form'); ?>
+                <?php echo DwButton::cancel('inventario/entrada/listar/'); ?>
+            </div>
+        </div>
+
+    <?php echo DwForm::close(); ?>
+
+</div>

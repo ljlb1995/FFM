@@ -1,0 +1,36 @@
+<?php View::notify(); ?>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <?php echo DwForm::open('', 'post', array('id'=>'form', 'class'=>'dw-validate')); ?>
+
+        <div class="row-fluid">
+            <div class="span4">
+                <?php echo DwForm::text('subgrupo.nombre', array('class'=>'input-required mask-alphanum show-error'), $subgrupo->nombre, 'Nombre'); ?>
+            </div>
+            <div class="span4">
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php echo DwForm::textarea('subgrupo.descripcion', array('class'=>'input-required mask-text show-error input-xxlarge'), $subgrupo->descripcion, 'Descripción'); ?>
+            </div>
+        </div>
+
+        
+
+            <?php echo DwForm::hiddenKey('subgrupo.id', $subgrupo->id); ?>
+
+        <div class="row-fluid">
+            <div class="form-actions">
+                <?php echo DwButton::save('Guardar descripcion'); ?>
+                <?php echo DwButton::reset('form'); ?>
+                <?php echo DwButton::cancel('config/subgrupo/listar/'); ?>
+            </div>
+        </div>
+
+    <?php echo DwForm::close(); ?>
+
+</div>

@@ -1,0 +1,71 @@
+<?php View::notify(); ?>
+
+<script type="text/javascript">
+    $(function() {
+        $('table').dwGrid({
+             form_search: true,
+            form_action: '<?php echo PUBLIC_PATH; ?>proyecto/responsable/buscar/',
+            form_load_data : 'dw-shell-content',
+            order_attr: '<?php echo (APP_AJAX) ? 'class="dw-ajax dw-spinner"' : ''; ?>',
+            order_action: $.KumbiaPHP.publicPath+"proyecto/responsable/listar/"
+        });
+    });
+</script>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <div class="btn-toolbar btn-toolbar-top">
+        <div class="btn-actions">
+            <?php echo DwHtml::button("proyecto/responsable/agregar/", 'agregar', array('class'=>'btn-success'), 'check', APP_AJAX); ?>
+        </div>
+    </div>
+
+    <div class="dw-overflow">
+
+        <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>NUM</th>
+                    <th class="col-collapse" data-search="cedula">CEDULA</th>
+                    <th class="col-collapse" data-search="nombre">NOMBRE</th>
+                    <th class="col-collapse">APELLIDO</th>
+                    <th class="col-collapse">TELÉFONO</th>
+                    <th class="col-collapse">CORREO ELECTRÓNICO</th>
+                     <th class="col-collapse">ESTADO</th>
+                    <th class="btn-actions no-responsive">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($responsables->items as $responsable): ?>
+                    <?php $key_upd = DwSecurity::getKey($responsable->id, 'upd_responsable'); ?>
+                     <?php $key_inac = DwSecurity::getKey($responsable->id, 'inactivar_responsable'); ?>
+                    <?php $key_reac = DwSecurity::getKey($responsable->id, 'reactivar_responsable'); ?>
+                    <tr>
+                        <td><?php echo $responsables->counter; ?></td>
+                        <td><?php echo empty($responsable->cedula) ? '' : $responsable->cedula; ?></td>
+                         <td><?php echo empty($responsable->nombre) ? '' : $responsable->nombre; ?></td> 
+                        <td><?php echo $responsable->apellido; ?></td>
+                        <td><?php echo $responsable->telefono; ?></td>
+                        <td><?php echo $responsable->email; ?></td>
+                        <td><?php echo ($responsable->estado == Responsable::ACTIVO) ? '<span class="label label-success">Activo</span>' : '<span class="label label-important">Inactivo</span>'; ; ?></td>
+                        <td>
+                            <?php echo DwHtml::buttonTable('Modificar responsable', "proyecto/responsable/editar/$key_upd/", null, 'info', 'edit'); ?>
+                           <?php if($responsable->estado == Responsable::ACTIVO) { ?>
+                                <?php echo DwHtml::buttonTable('Inactivar responsable', "proyecto/responsable/estado/inactivar/$key_inac/", null, 'success', 'flag'); ?>
+                            <?php } else { ?>
+                                <?php echo DwHtml::buttonTable('Reactivar feligres', "proyecto/responsable/estado/reactivar/$key_reac/", null, 'danger', 'flag'); ?>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <?php $responsables->counter++; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+    </div>
+
+    <?php View::partial('paginators/default', false, array('page'=>$responsables, 'url'=>"proyecto/responsables/listar/$order/")); ?>
+
+</div>

@@ -1,0 +1,71 @@
+<?php View::notify(); ?>
+
+<script type="text/javascript">
+    $(function() {
+        $('table').dwGrid({
+             form_search: true,
+            form_action: '<?php echo PUBLIC_PATH; ?>inventario/proveedor/buscar/',
+            form_load_data : 'dw-shell-content',
+            order_attr: '<?php echo (APP_AJAX) ? 'class="dw-ajax dw-spinner"' : ''; ?>',
+            order_action: $.KumbiaPHP.publicPath+"inventario/proveedor/listar/"
+        });
+    });
+</script>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <div class="btn-toolbar btn-toolbar-top">
+        <div class="btn-actions">
+            <?php echo DwHtml::button("inventario/proveedor/agregar/", 'agregar', array('class'=>'btn-success'), 'check', APP_AJAX); ?>
+        </div>
+    </div>
+
+    <div class="dw-overflow">
+
+        <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>NUM</th>
+                    <th class="col-collapse" data-search="rif">RIF</th>
+                    <th class="col-collapse" data-search="nombre">NOMBRE</th>
+                    <th class="col-collapse">RAZON</th>
+                    <th class="col-collapse">TELÉFONO</th>
+                    <th class="col-collapse">CORREO ELECTRÓNICO</th>
+                     <th class="col-collapse">ESTADO</th>
+                    <th class="btn-actions no-responsive">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($proveedores->items as $proveedor): ?>
+                    <?php $key_upd = DwSecurity::getKey($proveedor->id, 'upd_proveedor'); ?>
+                     <?php $key_inac = DwSecurity::getKey($proveedor->id, 'inactivar_proveedor'); ?>
+                    <?php $key_reac = DwSecurity::getKey($proveedor->id, 'reactivar_proveedor'); ?>
+                    <tr>
+                        <td><?php echo $proveedores->counter; ?></td>
+                        <td><?php echo empty($proveedor->rif) ? '' : $proveedor->rif; ?></td>
+                         <td><?php echo empty($proveedor->nombre) ? '' : $proveedor->nombre; ?></td> 
+                        <td><?php echo $proveedor->razon; ?></td>
+                        <td><?php echo $proveedor->telefono; ?></td>
+                        <td><?php echo $proveedor->email; ?></td>
+                        <td><?php echo ($proveedor->estado == Proveedor::ACTIVO) ? '<span class="label label-success">Activo</span>' : '<span class="label label-important">Inactivo</span>'; ; ?></td>
+                        <td>
+                            <?php echo DwHtml::buttonTable('Modificar proveedor', "inventario/proveedor/editar/$key_upd/", null, 'info', 'edit'); ?>
+                           <?php if($proveedor->estado == Proveedor::ACTIVO) { ?>
+                                <?php echo DwHtml::buttonTable('Inactivar proveedor', "inventario/proveedor/estado/inactivar/$key_inac/", null, 'success', 'flag'); ?>
+                            <?php } else { ?>
+                                <?php echo DwHtml::buttonTable('Reactivar proveedor', "inventario/proveedor/estado/reactivar/$key_reac/", null, 'danger', 'flag'); ?>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <?php $proveedores->counter++; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+    </div>
+
+    <?php View::partial('paginators/default', false, array('page'=>$proveedores, 'url'=>"inventario/proveedores/listar/$order/")); ?>
+
+</div>

@@ -1,0 +1,18 @@
+<?php
+  echo Form::dbSelect("proyecto.municipio_id", 'nombremunicipio', array('municipio','buscar',$estado_id), '- Seleccione -');
+
+?>		
+ 
+<script type='text/javascript'>
+$("#proyecto_municipio_id").change(function(){
+	var municipio_id 	=	$('#proyecto_municipio_id').val();
+        $.ajax({
+          type: "POST",
+          url: "<?php echo PUBLIC_PATH . 'proyecto/proyecto/getCiudades/'; ?>",
+          data: "municipio_id=" + municipio_id,
+          success: function(html){
+            $("#div_ciudades").html(html);
+          }
+        });
+});
+</script>

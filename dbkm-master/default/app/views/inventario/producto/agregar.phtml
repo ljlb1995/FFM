@@ -1,0 +1,37 @@
+<?php View::notify(); ?>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <?php echo DwForm::open('', 'post', array('id'=>'form', 'class'=>'dw-validate')); ?>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::number('producto.idproducto', array('class'=>'input-xlarge input-required show-error data-toggle="tooltip" title="Ingrese el Codigo del producto"'), NULL, 'Codigo'); ?>
+            </div>
+            <div class="span6">
+                <?php echo DwForm::text('producto.nombreproducto', array('class'=>'input-xlarge input-required show-error data-toggle="tooltip" title="Ingrese el Nombre del producto"'), NULL, 'Nombre Producto'); ?>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <?php echo DwForm::dbSelect('producto.grupo', array('nombre'), array('config/grupo', 'getListadoSelect'), array('todas'=>'Seleccione'), array('class'=>'input-xlarge  mask-pint show-errors data-toggle="tooltip" title="Selecciona un estado"'), NULL, 'Grupo'); ?>
+            </div>
+
+            <div class="span6">
+                <?php echo DwForm::dbSelect('producto.subgrupo', array('nombre'), array('config/subgrupo', 'getListadoSelect'), array('todas'=>'Seleccione'), array('class'=>'input-xlarge  mask-pint show-errors data-toggle="tooltip" title="Selecciona un estado"'), NULL, 'Subgrupo'); ?>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="form-actions">
+                <?php echo DwButton::save('Guardar'); ?>
+                <?php echo DwButton::reset('form'); ?>
+                <?php echo DwButton::cancel('inventario/producto/listar/'); ?>
+            </div>
+        </div>
+
+    <?php echo DwForm::close(); ?>
+
+</div>

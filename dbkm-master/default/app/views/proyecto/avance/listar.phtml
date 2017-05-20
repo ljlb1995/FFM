@@ -1,0 +1,69 @@
+<?php View::notify(); ?>
+
+<script type="text/javascript">
+    $(function() {
+        $('table').dwGrid({
+             form_search: true,
+            form_action: '<?php echo PUBLIC_PATH; ?>proyecto/avance/buscar/',
+            form_load_data : 'dw-shell-content',
+            order_attr: '<?php echo (APP_AJAX) ? 'class="dw-ajax dw-spinner"' : ''; ?>',
+            order_action: $.KumbiaPHP.publicPath+"proyecto/avance/listar/"
+        });
+    });
+</script>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <div class="btn-toolbar btn-toolbar-top">
+        <div class="btn-actions">
+            <?php echo DwHtml::button("proyecto/avance/agregar/", 'agregar', array('class'=>'btn-success'), 'check', APP_AJAX); ?>
+        </div>
+    </div>
+
+    <div class="dw-overflow">
+
+        <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>NUM</th>
+                    <th class="col-collapse" data-search="idproyecto">PROYECTO</th>
+                    <th class="col-collapse" data-search="nombre">CANTIDAD DE CASAS</th>
+                    <th class="col-collapse">RESPONSABLE</th>
+                    <th class="col-collapse">FECHA DE INICIO</th>
+                    <th class="col-collapse">ESTADO</th>
+                    <th class="btn-actions no-responsive">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($avances->items as $avance): ?>
+                    <?php $key_upd = DwSecurity::getKey($avance->id, 'upd_avance'); ?>
+                     <?php $key_inac = DwSecurity::getKey($avance->id, 'inactivar_avance'); ?>
+                    <?php $key_reac = DwSecurity::getKey($avance->id, 'reactivar_avance'); ?>
+                    <tr>
+                        <td><?php echo $avances->counter; ?></td>
+                        <td><?php echo empty($avance->idproyecto) ? '' : $avance->idproyecto; ?></td>
+                        <td><?php echo empty($avance->nombre) ? '' : $avance->nombre; ?></td> 
+                        <td><?php echo $avance->apellido; ?></td>
+                        <td><?php echo $avance->telefono; ?></td>
+                        <td><?php echo ($avance->estado == Avance::ACTIVO) ? '<span class="label label-success">Activo</span>' : '<span class="label label-important">Inactivo</span>'; ; ?></td>
+                        <td>
+                            <?php echo DwHtml::buttonTable('Modificar avance', "proyecto/avance/editar/$key_upd/", null, 'info', 'edit'); ?>
+                           <?php if($avance->estado == Avance::ACTIVO) { ?>
+                                <?php echo DwHtml::buttonTable('Inactivar avance', "proyecto/avance/estado/inactivar/$key_inac/", null, 'success', 'flag'); ?>
+                            <?php } else { ?>
+                                <?php echo DwHtml::buttonTable('Reactivar feligres', "proyecto/avance/estado/reactivar/$key_reac/", null, 'danger', 'flag'); ?>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <?php $avances->counter++; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+    </div>
+
+    <?php View::partial('paginators/default', false, array('page'=>$avances, 'url'=>"proyecto/avances/listar/$order/")); ?>
+
+</div>

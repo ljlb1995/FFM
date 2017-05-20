@@ -1,0 +1,76 @@
+<?php View::notify(); ?>
+
+<script type="text/javascript">
+    $(function() {
+        $('table').dwGrid({
+             form_search: true,
+            form_action: '<?php echo PUBLIC_PATH; ?>proyecto/proyecto/buscar/',
+            form_load_data : 'dw-shell-content',
+            order_attr: '<?php echo (APP_AJAX) ? 'class="dw-ajax dw-spinner"' : ''; ?>',
+            order_action: $.KumbiaPHP.publicPath+"proyecto/proyecto/listar/"
+        });
+    });
+</script>
+
+<div class="container-fluid dw-shell-view">
+
+    <?php View::process($page_module, $page_title, $set_title); ?>
+
+    <div class="btn-toolbar btn-toolbar-top">
+        <div class="btn-actions">
+            <?php echo DwHtml::button("proyecto/proyecto/agregar/", 'agregar', array('class'=>'btn-success'), 'check', APP_AJAX); ?>
+            <?php echo DwButton::report("proyecto/listar/", 'html', 'Reporte de Proyecto', 'imprimir'); ?>
+        </div>
+    </div>
+
+    <div class="dw-overflow">
+
+        <table class="table table-bordered table-hover table-striped table-condensed table-responsive">
+            <thead>
+                <tr>
+                    <th>NUM</th>
+                    <th class="col-collapse" data-search="idproyecto">CODIGO</th>
+                    <th class="col-collapse" data-search="nombreproyecto">NOMBRE</th>
+                    <th class="col-collapse">CANTIDAD DE CASAS</th>
+                    <th class="col-collapse">UBICACION</th>
+                    <th class="col-collapse">FECHA DE INICIO</th>
+                    <th class="col-collapse">PERSONA A CARGO</th>
+                     <th class="col-collapse">ESTADO</th>
+                    <th class="btn-actions no-responsive">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($proyectos->items as $Proyecto): ?>
+                     <?php $key_shw = DwSecurity::getKey($Proyecto->idproyecto, 'shw_Proyecto'); ?>
+                    <?php $key_upd = DwSecurity::getKey($Proyecto->id, 'upd_Proyecto'); ?>
+                     <?php $key_inac = DwSecurity::getKey($Proyecto->id, 'inactivar_Proyecto'); ?>
+                    <?php $key_reac = DwSecurity::getKey($Proyecto->id, 'reactivar_Proyecto'); ?>
+                    <tr>
+                        <td><?php echo $proyectos->counter; ?></td>
+                        <td><?php echo empty($Proyecto->idproyecto) ? '' : $Proyecto->idproyecto; ?></td>
+                         <td><?php echo empty($Proyecto->nombreproyecto) ? '' : $Proyecto->nombreproyecto; ?></td> 
+                        <td><?php echo $Proyecto->canttotal; ?></td>
+                        <td><?php echo $Proyecto->direccion; ?></td>
+                        <td><?php echo $Proyecto->fechai; ?></td>
+                        <td><?php echo $Proyecto->ingeniero; ?></td>
+                        <td><?php echo ($Proyecto->estado == Proyecto::ACTIVO) ? '<span class="label label-success">Activo</span>' : '<span class="label label-important">Inactivo</span>'; ; ?></td>
+                        <td>
+                            <?php echo DwHtml::buttonTable('Modificar Proyecto', "proyecto/proyecto/editar/$key_upd/", null, 'info', 'edit'); ?>
+                           <?php if($Proyecto->estado == Proyecto::ACTIVO) { ?>
+                           <?php echo DwHtml::buttonTable('Ver proyecto', "proyecto/proyecto/reporteproyecto/$key_shw/", null, 'warning', 'search'); ?>
+                                <?php echo DwHtml::buttonTable('Inactivar proyecto', "proyecto/proyecto/estado/inactivar/$key_inac/", null, 'success', 'flag'); ?>
+                            <?php } else { ?>
+                                <?php echo DwHtml::buttonTable('Reactivar proyecto', "proyecto/proyecto/estado/reactivar/$key_reac/", null, 'danger', 'flag'); ?>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <?php $proyectos->counter++; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+    </div>
+
+    <?php View::partial('paginators/default', false, array('page'=>$proyectos, 'url'=>"proyecto/proyecto/listar/$order/")); ?>
+
+</div>

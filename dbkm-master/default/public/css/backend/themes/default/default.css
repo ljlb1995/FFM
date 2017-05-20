@@ -1,0 +1,114 @@
+body {
+    background: url("img/body-bg.png") repeat scroll 0 0 #E9E9E9;
+    font-size: 13px/1.7em;
+}
+.navbar, footer {    
+    font-family: Play,Lucila,Verdana,sans-serif; 
+}
+
+
+
+/*--------------- Color del fondo de la intranet, parte superior e inferior --------------*/
+
+.navbar-inner {
+    background: none repeat scroll 0 0 #BD0B0B;
+    border-bottom: 1px solid black;    
+}
+
+/*--------------- Color del titulo del sistema --------------*/
+
+
+.user-nav .brand, footer a { color: #FFFFFF;  }
+
+/*--------------- Color de las letras de la parte inferior del sistema --------------*/
+
+.user-nav .nav > li > a, footer { color: white; text-shadow: none; }
+.user-nav .nav li.dropdown > .dropdown-toggle .caret, .navbar .nav li.dropdown.open > .dropdown-toggle .caret, 
+
+/*--------------- Color de las letras del usuario que inicio sesion en el sistema de la parte superior del lado derecho --------------*/
+
+.user-nav .nav li.dropdown.active > .dropdown-toggle .caret, .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret { border-bottom-color: #FF9900; border-top-color: #FFFFFF; }
+.user-nav .nav > li > a:hover, .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle, footer a:hover {
+    color: black; background-color: transparent;
+}
+
+/*--------------- Color de las letras de los modulos del sistema --------------*/
+
+.main-nav .navbar-inner {
+    background: -moz-linear-gradient(center top , #414141, #323232) repeat-x scroll 0 0 #3A3A3A;
+}
+.main-nav li.active.main-nav-arrow a {
+    color: black !important;
+    background-image:url("img/top-arrow.png");
+}
+.main-nav li.main-nav-arrow a {    
+    background-image:url("img/top-arrow.png");
+}
+
+
+/*--------------- Color del fondo de las letras de los modulos del sistema --------------*/
+
+.main-nav li.active a {        
+    background-color: #f5f5f5 !important;
+    color: black !important;    
+    font-weight: bold;
+}
+
+
+.main-nav li {
+    border-left: 1px solid black;
+    border-right: 1px solid black;    
+}
+
+/*--------------- Color de las letras de los modulos del sistema --------------*/
+
+.main-nav li > a {    
+    color: white !important;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2) !important;
+}
+.main-nav li > a:hover {
+    color: #f5f5f5 !important;
+}
+
+/*--------------- Color del fondo de las letras de los menus del sistema --------------*/
+.subnav {
+    background-color: #ffffff; 
+    border-bottom: 1px solid #f5f5f5;    
+}
+
+
+/*--------------- Color de las letras de los menus del sistema --------------*/
+
+
+.subnav .nav > li > a {
+    color: #369BD7;
+    border-left: 1px solid #f5f5f5;
+    border-right: 1px solid #e5e5e5;
+}
+
+
+.subnav .nav > li > a > i {
+    color: #555555;
+}
+
+.subnav .nav > li > a:hover {
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+
+/*--------------- Color de las letras de los menus del sistema --------------*/
+
+
+.subnav .nav > .active > a,
+.subnav .nav > .active > a:hover {
+    color: #2071A1;
+    background-color: inherit;
+    border-right-color: #ddd;
+}
+
+
+@media (max-width: 768px) {              
+    .nav-collapse .nav > li .active a > i {    
+        color: #FF9900 !important;        
+    }
+}
